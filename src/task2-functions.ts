@@ -5,12 +5,6 @@
 import type { Book, Catalog } from './task1-types';
 
 // TODO 1: Добавьте книгу в каталог
-// Параметры:
-//   - catalog (Catalog): исходный каталог
-//   - book (Book): книга для добавления
-// Возвращает: новый объект Catalog, содержащий все старые книги и новую
-// Подсказка: используйте оператор расширения (spread) `...`, чтобы создать новый объект, 
-// а не изменять существующий. Ключом должно быть свойство book.id.
 export function addBook(catalog: Catalog, book: Book): Catalog {
   return {
     ...catalog,

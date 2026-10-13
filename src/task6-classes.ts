@@ -1,154 +1,37 @@
 // ============================================================
 // Практика 3: Классы и ООП
 // ============================================================
-// В этом файле вы создадите классы, которые заменят функциональный
-// стиль из Практик 2.1 и 2.2. Цель — переписать каталог книг с
-// отдельных функций на объект с состоянием и методами.
+// Цель: заменить функциональный каталог из Практик 2.1–2.2
+// на класс с состоянием.
 //
-// Связь с лекцией:
-// - Лекция 4, слайд 6: синтаксис класса
-// - Лекция 4, слайд 12: модификаторы доступа
-// - Лекция 4, слайд 14: геттеры и сеттеры
-//
-// Проверка: npm test -- task6-classes
+// Проверка: npm test -- task6
 // ============================================================
 
 import { Book } from "./task1-types";
 import { filterByTitle, sortBooks } from "./task5-utils";
 
-// ============================================================
-// TODO 1: Класс BookCatalog
-// ============================================================
-// Создайте класс BookCatalog, который хранит книги и умеет
-// добавлять, удалять, искать и сортировать их.
-//
-// Поля:
-//   - private books: Book[] — массив книг (приватный, чтобы внешний код
-//     не мог изменить его напрямую)
-//   - readonly id: string — идентификатор каталога (только чтение)
-//
-// Конструктор:
-//   - принимает books: Book[] = [] (по умолчанию пустой массив)
-//   - принимает id: string
-//   - инициализирует поля this.books и this.id
-//
-// Методы:
-//   - addBook(book: Book): void — добавляет книгу в конец массива
-//     Подсказка: используйте иммутабельное обновление через [...this.books, book]
-//   - removeBook(id: string): void — удаляет книгу по id
-//     Подсказка: используйте filter, как в task2-functions.ts
-//   - getBooks(): Book[] — возвращает массив книг
-//
-// Геттеры:
-//   - get count(): number — возвращает количество книг
-//
-// Отсылки:
-// - Лекция 4, слайд 8: поля класса
-// - Лекция 4, слайд 9: конструктор
-// - Лекция 4, слайд 10: методы класса
-// - Лекция 4, слайд 12: модификаторы доступа
-// - Лекция 4, слайд 14: геттеры
-// - Практика 2.1, Задание 2: функции addBook и removeBook (логика та же)
+/*
+  Реализуйте класс BookCatalog.
 
-// ============================================================
-// TODO 2: Методы поиска и сортировки
-// ============================================================
-// Добавьте в класс BookCatalog два метода:
-//
-//   - searchByTitle(query: string): Book[]
-//     Ищет книги по названию (частичное совпадение, без учёта регистра).
-//     Подсказка: переиспользуйте функцию filterByTitle из task5-utils.ts.
-//     Пример: return this.books.filter(filterByTitle(query));
-//
-//   - sortBy(sortType: 'year' | 'rating'): Book[]
-//     Возвращает отсортированный массив книг.
-//     Подсказка: переиспользуйте функцию sortBooks из task5-utils.ts.
-//     Пример: return sortBooks(this.books, sortType);
-//
-// Отсылки:
-// - Практика 2.2, Задание 2: функции filterByTitle и sortBooks
-// - Лекция 4, слайд 10: методы класса
+  Состояние:
+    - books: Book[]        — приватное, снаружи недоступно
+    - id: string           — readonly
 
-// ============================================================
-// ЗАГОТОВКА КЛАССА (заполните TODO)
-// ============================================================
+  Конструктор: (books?: Book[], id: string)
 
-export class BookCatalog {
-  // TODO 1: Объявите поля
-  //   - private books: Book[]
-  //   - readonly id: string
+  Публичный API:
+    addBook(book: Book): void
+    removeBook(id: string): void
+    getBooks(): Book[]
+    searchByTitle(query: string): Book[]
+    sortBy(sortType: 'year' | 'rating'): Book[]
+    get count(): number
 
-  // TODO 1: Напишите конструктор
-  //   constructor(books: Book[] = [], id: string) {
-  //     this.books = books;
-  //     this.id = id;
-  //   }
+  Требования:
+    - addBook / removeBook не мутируют массив, а создают новый
+    - searchByTitle и sortBy переиспользуют filterByTitle / sortBooks
+    - внешний код не может присвоить this.books напрямую
 
-  // TODO 1: Напишите метод addBook
-  //   addBook(book: Book): void {
-  //     this.books = [...this.books, book];
-  //   }
-
-  // TODO 1: Напишите метод removeBook
-  //   removeBook(id: string): void {
-  //     this.books = this.books.filter(b => b.id !== id);
-  //   }
-
-  // TODO 1: Напишите метод getBooks
-  //   getBooks(): Book[] {
-  //     return this.books;
-  //   }
-
-  // TODO 1: Напишите геттер count
-  //   get count(): number {
-  //     return this.books.length;
-  //   }
-
-  // TODO 2: Напишите метод searchByTitle
-  //   searchByTitle(query: string): Book[] {
-  //     return this.books.filter(filterByTitle(query));
-  //   }
-
-  // TODO 2: Напишите метод sortBy
-  //   sortBy(sortType: 'year' | 'rating'): Book[] {
-  //     return sortBooks(this.books, sortType);
-  //   }
-}
-
-// ============================================================
-// TODO 4 (бонус): Класс Book
-// ============================================================
-// Создайте класс Book, который заменит интерфейс Book из task1-types.ts.
-// Это продвинутое задание для тех, кто закончил раньше.
-//
-// Поля:
-//   - id: string
-//   - title: string
-//   - authors: string[]
-//   - year?: number
-//   - rating?: number
-//
-// Конструктор:
-//   - принимает все поля и инициализирует их
-//
-// Методы:
-//   - format(): string — возвращает строку "Название — Автор(ы), Год"
-//     Подсказка: переиспользуйте логику из formatBook в task1-types.ts
-//
-// Статический метод:
-//   - static createFromFormData(data: FormData): Book
-//     Создаёт книгу из данных формы.
-//     Подсказка: переиспользуйте логику из createBookFromForm в task4-integration.ts
-//
-// Отсылки:
-// - Лекция 4, слайд 6: синтаксис класса
-// - Лекция 4, слайд 18: статические методы
-// - Практика 2.1, Задание 1: функция formatBook
-// - Практика 2.1, Задание 4: функция createBookFromForm
-
-// export class Book {
-//   // TODO 4: Объявите поля
-//   // TODO 4: Напишите конструктор
-//   // TODO 4: Напишите метод format()
-//   // TODO 4: Напишите статический метод createFromFormData
-// }
+  Бонус: класс Book с полями id, title, authors, year?, rating?,
+  методом format() и статическим createFromFormData(FormData).
+*/
