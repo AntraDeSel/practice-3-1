@@ -41,7 +41,7 @@
 
 ### 1. Состояние `BookCatalog`
 
-Приватный `books`, `readonly id`, конструктор `(books?: Book[], id: string)`.
+Приватный `books`, `readonly id`, конструктор `(id: string, books: Book[] = [])`.
 Публичный API: `addBook`, `removeBook`, `getBooks`, геттер `count`.
 
 Требования:

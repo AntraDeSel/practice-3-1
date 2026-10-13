@@ -17,7 +17,7 @@ import { filterByTitle, sortBooks } from "./task5-utils";
     - books: Book[]        — приватное, снаружи недоступно
     - id: string           — readonly
 
-  Конструктор: (books?: Book[], id: string)
+  Конструктор: (id: string, books: Book[] = [])
 
   Публичный API:
     addBook(book: Book): void
