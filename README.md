@@ -36,22 +36,40 @@
 
 ## Что делать
 
-Все правки — в `src/task6-classes.ts`. В файле четыре TODO,
-каждому соответствует свой блок тестов.
+Все правки — в `src/task6-classes.ts`. Полное задание с сигнатурами —
+в комментарии в начале этого файла. Проверка: `npm test -- task6`.
 
-### TODO 1 — состояние BookCatalog
-Приватный `books`, `readonly id`, конструктор, `addBook`, `removeBook`,
-`getBooks`, геттер `count`. Мутации через иммутабельные обновления.
+### 1. Состояние `BookCatalog`
+
+Приватный `books`, `readonly id`, конструктор `(books?: Book[], id: string)`.
+Публичный API: `addBook`, `removeBook`, `getBooks`, геттер `count`.
+
+Требования:
+- `addBook` / `removeBook` не мутируют массив, а создают новый;
+- `books` снаружи недоступен — внешний код не может присвоить его напрямую.
+
 Тесты: конструктор, addBook, removeBook, getBooks, count.
 
-### TODO 2 — поиск и сортировка
-`searchByTitle(query)`, `sortBy('year' | 'rating')`.
-Логику не писать заново — переиспользовать `filterByTitle` и `sortBooks`
+### 2. Поиск и сортировка
+
+`searchByTitle(query)` и `sortBy('year' | 'rating')`.
+Логику заново не писать — переиспользовать `filterByTitle` и `sortBooks`
 из `task5-utils.ts`.
+
 Тесты: searchByTitle, sortBy.
 
-### TODO 3 — интеграция в main.ts
-Заменить функциональный каталог на `new BookCatalog(...)`:
+### 3. Бонус — класс `BookClass`
+
+Имя `BookClass` — чтобы не конфликтовать с интерфейсом `Book`.
+Поля `id, title, authors, year?, rating?`, метод `format()`,
+статический `createFromFormData(FormData): BookClass`.
+
+Логику брать из `formatBook` и `createBookFromForm`.
+
+### Интеграция в `main.ts`
+
+Заменить функциональный каталог из Практик 2.1–2.2 на `new BookCatalog(...)`:
+
 - `addBook(catalog, b)` → `catalog.addBook(b)`
 - `removeBook(catalog, id)` → `catalog.removeBook(id)`
 - `Object.values(catalog)` → `catalog.getBooks()`
@@ -60,23 +78,15 @@
 
 **Ловушка десериализации.** `JSON.stringify` сохранит данные, но `JSON.parse`
 вернёт простой объект без методов. После загрузки из localStorage:
+
 ```typescript
 catalog = new BookCatalog(parsed.books, parsed.id);
-```
-Проверка: после F5 книги на месте **и** кнопки работают.
-
-### TODO 4 (бонус) — класс BookClass
-Имя `BookClass` — чтобы не конфликтовать с интерфейсом `Book`.
-Поля `id, title, authors, year?, rating?`, метод `format()`,
-статический `createFromFormData(FormData): BookClass`.
-Логику брать из `formatBook` и `createBookFromForm`.
 
 ## Критерии сдачи
 
 - [ ] TODO 1: тесты конструктора, addBook, removeBook, getBooks, count зелёные.
 - [ ] TODO 2: тесты searchByTitle и sortBy зелёные, логика из task5-utils.
 - [ ] TODO 3: приложение работает в браузере, после F5 кнопки работают.
-- [ ] `npm test` полностью зелёный (включая практики 2.1 и 2.2).
 - [ ] Бонус: BookClass с `format()` и `createFromFormData()`.
 
 ## Публикация на GitHub Pages
