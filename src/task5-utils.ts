@@ -17,9 +17,6 @@ export const filterByTitle = (query: string): BookFilter => {
 // ------------------------------------------------------------
 export function sortBooks(books: Book[], sortType: "year" | "rating"): Book[] {
   if (sortType === "year") {
-    // Сортировка по году: от новых к старым (по убыванию)
-    // ВАЖНО: [...books] делает копию, .sort() мутирует массив
-    // ?? 0 защищает от undefined (книги без года опустятся в конец)
     return [...books].sort((a, b) => (b.year ?? 0) - (a.year ?? 0));
   }
   

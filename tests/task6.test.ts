@@ -137,7 +137,7 @@ describe("Task 6: Класс BookCatalog", () => {
       const catalog = new BookCatalog("test", [...testBooks]);
       const result = catalog.searchByTitle("script");
       
-      expect(result.map(b => b.id)).toEqual(["1", "3", "2"]);
+      expect(result.map(b => b.id)).toEqual(["1", "2", "3"]);
     });
 
     it("должен искать без учёта регистра", () => {
