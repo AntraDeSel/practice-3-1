@@ -11,6 +11,14 @@ export const filterByAuthor = (authorName: string): BookFilter => {
     );
 };
 
+
+/**
+ * Создаёт предикат для фильтрации книг по минимальному рейтингу.
+ *
+ * @deprecated пока не используется, задел на ползунок
+ * «Минимальный рейтинг» в панели фильтров.
+ */
+
 // фильтр по минимальному году издания
 export const filterByMinYear = (year: number): BookFilter => {
   return (book: Book) => book.year !== undefined && book.year >= year;

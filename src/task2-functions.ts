@@ -4,6 +4,14 @@
 //импортирт типов Book и Catalog из файла task1-types.ts
 import type { Book, Catalog } from './task1-types';
 
+
+/**
+ * Иммутабельно добавляет книгу в каталог.
+ *
+ * @deprecated пока не используется в main.ts (заменено на метод
+ * BookCatalog.addBook). Оставлено для CLI-утилит и обратной совместимости.
+ */
+
 // TODO 1: Добавьте книгу в каталог
 export function addBook(catalog: Catalog, book: Book): Catalog {
   return {
@@ -12,13 +20,25 @@ export function addBook(catalog: Catalog, book: Book): Catalog {
   };
 }
 
+
+/**
+ * Иммутабельно удаляет книгу по id.
+ *
+ * @deprecated пока не используется в main.ts (заменено на метод
+ * BookCatalog.removeBook). Оставлено для CLI-утилит.
+ */
+
 // удаление книги из каталога по id
 
 export function removeBook(catalog: Catalog, id: string): Catalog {
   const { [id]: _, ...rest } = catalog;
   return rest;
 }
-
+/**
+ * Возвращает книгу по id или undefined.
+ *
+ * @deprecated пока не используется, задел на страницу деталей книги.
+ */
 // поиск книгу в каталоге по id
 export function getBook(catalog: Catalog, id: string): Book | undefined {
   return catalog[id];

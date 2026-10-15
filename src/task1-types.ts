@@ -19,12 +19,21 @@ export type BookFilter = (book: Book) => boolean;
 
 
 // Функция formatBook(book: Book): string в формате: "Title (Year) — Authors"
+/* 
+* @deprecated пока не используется в main.ts, задел на унификацию
+ * вывода карточек книг в renderBooks.
+ */
 export function formatBook(book: Book): string {
   const yearStr = book.year !== undefined ? ` (${book.year})` : "";
   const authorsStr = book.authors.join(", ");
   return `${book.title}${yearStr} — ${authorsStr}`;
 }
-
+/**
+ * Возвращает средний год издания среди книг, у которых он задан.
+ *
+ * @deprecated пока не используется, задел на фичу "Статистика":
+ * вывод в шапке сайта среднего года коллекции.
+ */
 // Функция calculateAverageYear(books: Book[]): number возвращает средний год издания. Если книг нет или у них нет года — вернуть 0.
 export function calculateAverageYear(books: Book[]): number {
   const booksWithYear = books.filter((book) => book.year !== undefined);
@@ -39,3 +48,4 @@ export function calculateAverageYear(books: Book[]): number {
 
   return sum / booksWithYear.length;
 }
+
